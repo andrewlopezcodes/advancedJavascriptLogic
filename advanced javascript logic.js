@@ -6,24 +6,44 @@
 // Bonus: Make it so it organizes strings differently from number types. 
 // // i.e. [1, "2", "3", 2] should return [[1,2], ["2", "3"]]
 
-// to do list
-// 1) second for loop > if index length is larger than 1 push into finalNumber Array
-// 2) second for loop > if index length is 1 push index[0] into finalNumberArray
-// 3) second for loop > return finalNumberArray
-// 4) third for loop > loop over finalNumberArray
-// 5) third for loop > if index length is !isNaN = true
+
 
 
 let arrayOrganizer = function(array){
-  let numberArray =[];
-  let letterArray =[];
+  let firstStagedArray =[];
   let secondStagedArray = [];
-  let finalNumberArray = [];
+  let thirdStagedArray = [];
   let doneArray = [];
   let flattenArray = array.flat();
   let sortedArray = flattenArray.sort(); 
-  let lastMatched = 0;
-  console.log('this is the sortedArray', sortedArray);
+  let singleIndexedArray = 0;
+
+  function initialSorter(){
+    for (let index = 0; index < sortedArray.length; index++) {
+      if (!isNaN(sortedArray[index]) && sortedArray[index] === sortedArray[index + 1]) {
+       firstStagedArray.push(sortedArray[index]);
+       } else if(!isNaN(sortedArray[index])){
+         singleIndexedArray = sortedArray[index];
+         firstStagedArray.push(singleIndexedArray);
+         secondStagedArray.push(firstStagedArray);
+         firstStagedArray =[];
+         thirdStagedArray = [];
+        }
+      }
+  }
+
+  function nextSorter(){
+    for (let index = 0; index < secondStagedArray.length; index++) {
+      if(secondStagedArray[index].length > 1 ){
+        thirdStagedArray.push(secondStagedArray[index])
+      }else {
+        thirdStagedArray.push(secondStagedArray[index][0]);
+      }
+    };
+    flattenArray = thirdStagedArray.flat(Infinity);
+    sortedArray = flattenArray.sort((a, b)=> a-b);
+    secondStagedArray = [];
+  };
 
   function finalSorter(){
     for (let index = 0; index < secondStagedArray.length; index++) {
@@ -31,47 +51,42 @@ let arrayOrganizer = function(array){
         doneArray.push(secondStagedArray[index])
       }else {
         doneArray.push(secondStagedArray[index][0]);
-        console.log("this is doneArray ", doneArray);
       }
     };
-    return 'this is the final answer ', doneArray; 
   };
-
-  function nextSorter(){
-    for (let index = 0; index < secondStagedArray.length; index++) {
-      if(secondStagedArray[index].length > 1 ){
-        finalNumberArray.push(secondStagedArray[index])
-      }else {
-        finalNumberArray.push(secondStagedArray[index][0]);
-        console.log("this is finalNumberArray ", finalNumberArray.sort());
-      }
-    }
-    flattenArray = finalNumberArray.flat(Infinity);
-    sortedArray = flattenArray.sort((a, b)=> a-b);
-    secondStagedArray = [];
-  }
-
-  function initialSorter(){
-    for (let index = 0; index < sortedArray.length; index++) {
-      if (!isNaN(sortedArray[index]) && sortedArray[index] === sortedArray[index + 1]) {
-       console.log("is the value at the current index a number?", !isNaN(sortedArray[index]));
-       numberArray.push(sortedArray[index]);
-       console.log("this is the value at the current index", sortedArray[index]);
-       console.log("this is the numberArray " , numberArray);
-       } else if(!isNaN(sortedArray[index])){
-         lastMatched = sortedArray[index];
-         numberArray.push(lastMatched);
-         secondStagedArray.push(numberArray);
-         numberArray =[];
-         finalNumberArray = [];
-         console.log('this is the secondStagedArray', secondStagedArray);
-         console.log('this is the numberArray #2', numberArray);
-        }
-      }
-  }
   
   initialSorter();
   nextSorter();
   initialSorter()
   finalSorter();
+  return "this is the final answer", doneArray; 
  };
+
+
+//  Question 2: Write a javascript function that takes an array of numbers and a target number. 
+// The function should find two different numbers in the array that, when added together, give 
+// the target number. For example: answer([1,2,3], 4)should return [1,3]
+// 1) create a function that has 2 parameters an array and a total 
+// 2) declare a variable to flatten an array using flat() method
+// 3) declare a variable sorting the flattened array into sequential order ex: [1, 2, 3,...]
+// 4) declare a variable that is an empty array to hold the shorten array from the for loop 
+// 5) create a for loop that iterates over the sorted array
+// 5a) 1st for loop >> create a conditional that compares the sortedArray current index to the to the total number
+//                     and if the sortedArray current index value is in the filtered array
+//                     and if sortedArray current index is less than the total number.
+// 5b) 1st for loop >> if the current sortedArray index satisfies the conditional push that number into filteredArray.
+//                     if the current sortedArray index doesn't satisfy conditional console.log " number not needed" 
+// 5c) 1st for loop >> assure the current sortedArray index is a number.
+
+function useArrayToMakeTotal (array, total){
+  let flattenArray = array.flat(Infinity);
+  let sortedArray = flattenArray.sort((a, b)=> a-b);
+  let filteredArray = [];
+  console.log(filteredArray[-1])
+  for (let index = 0; index < sortedArray.length; index++) {
+    (Number.isInteger(sortedArray[index]) && sortedArray[index] < total 
+      && filteredArray.indexOf(sortedArray[index]) === -1) ? 
+        filteredArray.push(sortedArray[index]) : console.log("number not needed");
+  }
+  console.log("this is the filteredArray ", filteredArray);
+};
