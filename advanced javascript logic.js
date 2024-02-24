@@ -10,7 +10,38 @@
 let arrayOrganizer = function(array){
   let numberArray =[];
   let letterArray =[];
+  let secondStagedArray = [];
+  let finalNumberArray = [];
   let flattenArray = array.flat();
   let sortedArray = flattenArray.sort(); 
-  console.log(sortedArray);
-}
+  let lastMatched = 0;
+   console.log('this is the sortedArray', sortedArray);
+  // !isNaN(sortedArray[index]) && 
+  // sortedArray[index] !== sortedArray[index + 1] && 
+  
+
+  for (let index = 0; index < sortedArray.length; index++) {
+       if (!isNaN(sortedArray[index]) && sortedArray[index] === sortedArray[index + 1]) {
+        console.log("is the value at the current index a number?", !isNaN(sortedArray[index]));
+        numberArray.push(sortedArray[index]);
+        indexScore = index;
+        console.log("this is the value at the current index", sortedArray[index]);
+        console.log("this is the numberArray " , numberArray);
+        } else if(!isNaN(sortedArray[index])){
+          lastMatched = sortedArray[index];
+          numberArray.push(lastMatched);
+          secondStagedArray.push(numberArray);
+          numberArray =[];
+          console.log('this is the secondStagedArray', secondStagedArray);
+          console.log('this is the numberArray #2', numberArray);
+          console.log('this is finalNumberArray', finalNumberArray);
+        }
+        
+  }
+
+  for (let index = 0; index < secondStagedArray.length; index++) {
+    if(secondStagedArray[index].length === 1 ){
+      console.log('happy');
+  };
+  }
+};
