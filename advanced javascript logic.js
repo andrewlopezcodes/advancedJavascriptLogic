@@ -77,11 +77,22 @@ let arrayOrganizer = function(array){
 // 5b) 1st for loop >> if the current sortedArray index satisfies the conditional push that number into filteredArray.
 //                     if the current sortedArray index doesn't satisfy conditional console.log " number not needed" 
 // 5c) 1st for loop >> assure the current sortedArray index is a number.
+// 6) declare a variable to hold remainder.
+// 7) declare a variable secondFilteredArray
+// 7) 2nd for loop >> iterate over filteredArray, 
+//                    if current filteredArray index is positive make the value of sortedRemainder the answer of subtract
+//                    each filteredArray index from total else make the value of sortedRemainder the answer of add 
+//                    each filteredArray index to total
+//                    
+// 7b) 2nd for loop >> use indexOf() method to see if remainder has an index in filteredArray
+//                     if indexOf() remainder has an index in filteredArray push sortedRemainder into secondFilteredArray
 
 function useArrayToMakeTotal (array, total){
   let flattenArray = array.flat(Infinity);
   let sortedArray = flattenArray.sort((a, b)=> a-b);
   let filteredArray = [];
+  let sortedRemainder = 0;
+  let secondFilteredArray =[];
   console.log(filteredArray[-1])
   for (let index = 0; index < sortedArray.length; index++) {
     (Number.isInteger(sortedArray[index]) && sortedArray[index] < total 
@@ -89,4 +100,13 @@ function useArrayToMakeTotal (array, total){
         filteredArray.push(sortedArray[index]) : console.log("number not needed");
   }
   console.log("this is the filteredArray ", filteredArray);
+
+  for (let index = 0; index < filteredArray.length; index++) {
+    (filteredArray[index] >= 0 || filteredArray[index] === total) ? 
+      sortedRemainder = total - filteredArray[index] : sortedRemainder = filteredArray[index] + total;    
+    console.log("this is current sortedRemainder", sortedRemainder);
+    (sortedArray.indexOf(sortedRemainder) > -1) ? 
+      secondFilteredArray.push(sortedRemainder) : console.log("remainder not needed");
+      console.log("this is the finished secondFilteredArray ", secondFilteredArray);
+  }
 };
