@@ -109,49 +109,88 @@ let arrayOrganizer = function(array){
 //                    filteredArray[index].
 
 
-function useArrayToMakeTotal (array, total){
-  let flattenArray = array.flat(Infinity);
-  let sortedArray = flattenArray.sort((a, b)=> a-b);
-  let filteredArray = [];
-  let sortedRemainder = 0;
-  let secondFilteredArray =[];
-  let thisPairEqualsTotal = [];
-  console.log(filteredArray[-1])
+// function useArrayToMakeTotal (array, total){
+//   let flattenArray = array.flat(Infinity);
+//   let sortedArray = flattenArray.sort((a, b)=> a-b);
+//   let filteredArray = [];
+//   let sortedRemainder = 0;
+//   let secondFilteredArray =[];
+//   let addedPair = [];
+//   let thisPairEqualsTotal = [];
+//   console.log(filteredArray[-1])
  
-  for (let index = 0; index < sortedArray.length; index++) {
-    (Number.isInteger(sortedArray[index])) ? 
-        filteredArray.push(sortedArray[index]) : console.log("sortedArray index not needed");
+//   for (let index = 0; index < sortedArray.length; index++) {
+//     (Number.isInteger(sortedArray[index])) ? 
+//         filteredArray.push(sortedArray[index]) : console.log("sortedArray index not needed");
+//   }
+//   console.log("this is the filteredArray ", filteredArray);
+
+//   for (let index = 0; index < filteredArray.length; index++) {
+//     if(filteredArray[index] > total && filteredArray.indexOf(-(total)) > -1){
+//       sortedRemainder = filteredArray[index] - total;
+//       console.log(`#1 filteredArray[index]: ${filteredArray[index]} - total: ${total} = `, sortedRemainder); 
+//       (sortedRemainder === total) ? 
+//       secondFilteredArray.push(filteredArray[index], filteredArray[filteredArray.indexOf(-(total))]) : console.log("remainder not needed");
+//       console.log("this is the finished secondFilteredArray ", secondFilteredArray);
+
+//     }else if(filteredArray[index] >= 0 || filteredArray[index] === total){
+//       sortedRemainder = total - filteredArray[index],
+//       console.log(`#2 total: ${total} - filteredArray[index] ${filteredArray[index]} = `, sortedRemainder);
+//       (sortedArray.indexOf(sortedRemainder) > -1 && secondFilteredArray.indexOf(sortedRemainder) === -1) ? 
+//       secondFilteredArray.push(sortedRemainder) : console.log("remainder not needed");
+//       console.log("this is the finished secondFilteredArray ", secondFilteredArray);
+
+//     } else if (filteredArray[index] < 0){
+//       sortedRemainder = filteredArray[index] + total;
+//       console.log(`#3 filteredArray[index] : ${filteredArray[index]} + total: ${total} = `, sortedRemainder);
+//       (sortedArray.indexOf(sortedRemainder) > -1 && secondFilteredArray.indexOf(sortedRemainder) === -1) ? 
+//       secondFilteredArray.push(sortedRemainder) : console.log("remainder not needed");
+//       console.log("this is the finished secondFilteredArray ", secondFilteredArray);
+//     }  
+//   }
+//   sortedRemainder =0;
+//   console.log(filteredArray, sortedRemainder, secondFilteredArray);
+
+//   if(secondFilteredArray.length > 1){
+//     for (let SFindex = 0; SFindex < secondFilteredArray.length; SFindex++) {
+//       sortedRemainder = secondFilteredArray[SFindex];
+//       for (let filteredindex = 0; filteredindex < filteredArray.length; filteredindex++) {
+//         (sortedRemainder +  filteredArray[filteredindex] === total) ? 
+//         addedPair.push(sortedRemainder, secondFilteredArray[0]): console.log('try again');
+//         thisPairEqualsTotal.push(addedPair);
+//         addedPair =[];        
+//       }        
+//     }
+//   }
+//   return `these are the pairs if added make the total`, thisPairEqualsTotal;
+// };
+
+
+
+  function tryThis (array, total){
+    let flattenArray = array.flat(Infinity);
+    let sortedArray = flattenArray.sort((a, b)=> a-b);
+    let filteredArray = [];
+    let storedNumber = 0;
+    let addedPair = [];
+    let thisPairEqualsTotal = [];
+  
+    for (let index = 0; index < sortedArray.length; index++) {
+          (Number.isInteger(sortedArray[index])) ? 
+              filteredArray.push(sortedArray[index]) : console.log("sortedArray index not needed");
+    }
+    console.log("this is the filteredArray ", filteredArray);
+  
+    for (let k = 0; k < filteredArray.length; k++) {
+      storedNumber = filteredArray[k];
+      for (let n = 0; n < filteredArray.length; n++) {
+        (storedNumber + filteredArray[n] === total
+          && storedNumber !== filteredArray[n]
+          && addedPair.indexOf(storedNumber) === -1) ? addedPair.push(storedNumber, filteredArray[n]): console.log('try again');
+        }    
+    }
+    return console.log(`these are the pairs that equal ${total} `), addedPair;
   }
-  console.log("this is the filteredArray ", filteredArray);
+ 
 
-  for (let index = 0; index < filteredArray.length; index++) {
-    if(filteredArray[index] > total && filteredArray.indexOf(-(total)) > -1){
-      sortedRemainder = filteredArray[index] - total;
-      console.log(`filteredArray[index]: ${filteredArray[index]} - total: ${total} = `, sortedRemainder); 
-      (sortedRemainder === total) ? 
-      secondFilteredArray.push(filteredArray[index], filteredArray[filteredArray.indexOf(-(total))]) : console.log("remainder not needed");
-      console.log("this is the finished secondFilteredArray ", secondFilteredArray);
-    }else if(filteredArray[index] >= 0 || filteredArray[index] === total){
-      sortedRemainder = total - filteredArray[index],
-      console.log(" total - filteredArray[index]= ", sortedRemainder);
-      (sortedArray.indexOf(sortedRemainder) > -1) ? 
-      secondFilteredArray.push(sortedRemainder) : console.log("remainder not needed");
-      console.log("this is the finished secondFilteredArray ", secondFilteredArray);
-    } else if (filteredArray[index] < 0){
-      sortedRemainder = filteredArray[index] + total;
-      console.log("filteredArray[index] + total= ", sortedRemainder);
-      (sortedArray.indexOf(sortedRemainder) > -1) ? 
-      secondFilteredArray.push(sortedRemainder) : console.log("remainder not needed");
-      console.log("this is the finished secondFilteredArray ", secondFilteredArray);
-    }  
-  }
-       
-    
-  //   (sortedArray.indexOf(sortedRemainder) > -1) ? 
-  //     secondFilteredArray.push(sortedRemainder) : console.log("remainder not needed");
-  //     console.log("this is the finished secondFilteredArray ", secondFilteredArray);
-  // }
 
-  // handles all numbers greater than total
-
-};
