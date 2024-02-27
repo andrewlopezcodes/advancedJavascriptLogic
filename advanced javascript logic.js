@@ -162,9 +162,8 @@ let arrayOrganizer = function(array){
 // RGB(224, 105, 16) is E06910 
 
 function colorConverter (data){
-  let hexHead = '#';
   let stringHolder = [];
-  let miniRGB = [];
+  let finished;
   let alphaNumericObj = {
     0: 0,
     1: 1,
@@ -199,30 +198,37 @@ function colorConverter (data){
     console.log(`this is the stringHolder for makHex before`, stringHolder);
     stripedStringHolder = stringHolder.substring(4, stringHolder.length -1);
     console.log(`this is stringHolder for makeHex after`, stripedStringHolder);
-    
-    // index0 = (i * (16**2));
-    // index2 = (i * (16**1));
-    // index3 = (i * (16**0));
+    console.log(stripedStringHolder.split(","));
+    stringHolder = stripedStringHolder.split(',');
+    let indexZeroHex = Number.parseInt(stringHolder[0], 0);
+    let indexOneHex = Number.parseInt(stringHolder[1], 0);
+    let indexTwoHex = Number.parseInt(stringHolder[2], 0);
+    let hexRed = indexZeroHex.toString(16);
+    let hexGreen = indexOneHex.toString(16);
+    let hexBlue = indexTwoHex.toString(16);
+    console.log(stringHolder[0]);
+    console.log(indexZeroHex);
+    finished = "#"+ hexRed + hexGreen + hexBlue;
+    stringHolder = [];
   };
 
   function makeRGB(stringHolder){
-    miniRGB = [];
+    let miniRGB = [];
     stringHolder.shift();
+    console.log(`this is stringholder after the .shfit()`, stringHolder);
     let indexZero = stringHolder[0];
     let indexOne = stringHolder[1];
     let indexTwo = stringHolder[2];
     let indexThree = stringHolder[3];
     let indexFour = stringHolder[4];
     let indexFive = stringHolder[5];
-    
+    console.log(`next step`);
     miniRGB[0] = 'RGB(' + ((alphaNumericObj[indexZero] * 16) + (alphaNumericObj[indexOne] * 1));
     miniRGB[1] = ((alphaNumericObj[indexTwo] * 16) + (alphaNumericObj[indexThree] * 1));
     miniRGB[2] = ((alphaNumericObj[indexFour] * 16) + (alphaNumericObj[indexFive] * 1)) + ')';
-    
-    console.log(`this is miniRGB `, miniRGB);
+    finished = miniRGB.toString();
+    console.log(`this is the RGB version of the hexadecimal color ${data} `, finished);
     stringHolder=[];
-
-
   }
 
   function makeArray (data){
@@ -238,7 +244,7 @@ function colorConverter (data){
   }
 makeArray(data);
 
-  return miniRGB.toString();
+return finished
 };
 
 
