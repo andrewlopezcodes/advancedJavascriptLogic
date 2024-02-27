@@ -95,72 +95,6 @@ let arrayOrganizer = function(array){
   // Question 3: Write a function that converts HEX to RGB. Then Make that function auto-detect the 
   // formats so that if you enter HEX color format it returns RGB and if you enter RGB color format it returns HEX.
 
-// What do the numbers and letters in a hex code mean?
-// Hex color codes start with a pound sign or hashtag (#) and are followed by six letters and/or numbers. 
-// The first two letters/numbers refer to red, the next two refer to green, and the last two refer to blue. 
-// The color values are defined in values between 00 and FF (instead of from 0 to 255 in RGB).
-
-// Numbers are used when the value is 1-9. Letters are used when the value is higher than 9. For example:
-
-// A=10
-
-// B=11
-
-// C=12
-
-// D=13
-
-// E=14
-
-// F=15
-
-// To get a hexadecimal color, follow these three steps:
-
-// Multiply the first number by 16.
-
-// Multiply the second number by 1.
-
-// Add the two totals together. 
-
-
-// 1) create makeArray function that converts stringHolder into an array
-// 2) create a function that detects RGB vs HEX
-// 3) declare hexHead variable equal to '#'
-// 4) declare rgbHead variable equal to 'RGB('
-// 5) declare rgbTail variable equal to ')'
-// 6) declare stringHolder variable equal to an empty array
-// 7) create function makeArray
-
-// 7) create findPath function that takes in stringHolder variable and asks a conditional to determine
-//          if we're going to convert from hex to rgb or rgb to hex
-// 7a)      if RGB convert to Hex
-//              meake a function called makeHex
-//              
-// 2) 
-// 3)       if Hex convert to RGB
-//              make a function called makdRGB
-//  create a if else statement that sorts the stringHolder array by lengths of 3, 6, 8
-    if length of stringHolder is equal to 3 or 5
-      create a function named hex3ToRGB that says if the value of any index in the stringHolder array is a letter 
-      or number, search the alphaNumericObj's keys and multiply the value by 16.
-        declare variable prevIndex as a holder for the previous index
-        conditional ?> is the length of stringHolder 3 or 5 ? call grow3 with stringHolder as the parameter : call remove2 with stringHolder as   
-        the parameter
-
-    if length of stringHolder is equal to 6 or 8
-      create a function named hex6ToRGB
-    if length of stringHolder is equal to 8
-      create a function named hex8ToRGB
-//              
-
-//    call makeArray function with stringHolder as an argument
-//    b. 
-// 4) create a function that converts a string into an array 
-
-
-
-// RGB(224, 105, 16) is E06910 
-
 function colorConverter (data){
   let stringHolder = [];
   let finished;
@@ -195,10 +129,7 @@ function colorConverter (data){
 
   function makeHex(stringHolder){
     let stripedStringHolder;
-    console.log(`this is the stringHolder for makHex before`, stringHolder);
     stripedStringHolder = stringHolder.substring(4, stringHolder.length -1);
-    console.log(`this is stringHolder for makeHex after`, stripedStringHolder);
-    console.log(stripedStringHolder.split(","));
     stringHolder = stripedStringHolder.split(',');
     let indexZeroHex = Number.parseInt(stringHolder[0], 0);
     let indexOneHex = Number.parseInt(stringHolder[1], 0);
@@ -206,28 +137,23 @@ function colorConverter (data){
     let hexRed = indexZeroHex.toString(16);
     let hexGreen = indexOneHex.toString(16);
     let hexBlue = indexTwoHex.toString(16);
-    console.log(stringHolder[0]);
-    console.log(indexZeroHex);
-    finished = "#"+ hexRed + hexGreen + hexBlue;
+    finished = "#" + hexRed + hexGreen + hexBlue;
     stringHolder = [];
   };
 
   function makeRGB(stringHolder){
     let miniRGB = [];
     stringHolder.shift();
-    console.log(`this is stringholder after the .shfit()`, stringHolder);
     let indexZero = stringHolder[0];
     let indexOne = stringHolder[1];
     let indexTwo = stringHolder[2];
     let indexThree = stringHolder[3];
     let indexFour = stringHolder[4];
     let indexFive = stringHolder[5];
-    console.log(`next step`);
     miniRGB[0] = 'RGB(' + ((alphaNumericObj[indexZero] * 16) + (alphaNumericObj[indexOne] * 1));
     miniRGB[1] = ((alphaNumericObj[indexTwo] * 16) + (alphaNumericObj[indexThree] * 1));
     miniRGB[2] = ((alphaNumericObj[indexFour] * 16) + (alphaNumericObj[indexFive] * 1)) + ')';
     finished = miniRGB.toString();
-    console.log(`this is the RGB version of the hexadecimal color ${data} `, finished);
     stringHolder=[];
   }
 
@@ -235,9 +161,7 @@ function colorConverter (data){
     if(data[0] === '#'){
       for (let index = 0; index < data.length; index++) {
       let slicedLetter = data.slice(index, index+1);
-      console.log(slicedLetter);
       stringHolder.push(slicedLetter);
-      console.log(`this is stringHolder`, stringHolder);
     }
     findPath(stringHolder)
     } else {stringHolder = data, findPath(stringHolder)}
@@ -247,6 +171,7 @@ makeArray(data);
 return finished
 };
 
+//this code was written by @andrewlopezcodes 02/27/2024
 
 
 
