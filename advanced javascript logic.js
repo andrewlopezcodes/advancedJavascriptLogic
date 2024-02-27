@@ -163,8 +163,6 @@ let arrayOrganizer = function(array){
 
 function colorConverter (data){
   let hexHead = '#';
-  let rgbHead = 'RGB(';
-  let rgbTail = ')';
   let stringHolder = [];
   let miniRGB = [];
   let alphaNumericObj = {
@@ -196,7 +194,16 @@ function colorConverter (data){
     (stringHolder[0] === '#') ? makeRGB(stringHolder) : makeHex(stringHolder);
   }
 
-  function makeHex(){};
+  function makeHex(stringHolder){
+    let stripedStringHolder;
+    console.log(`this is the stringHolder for makHex before`, stringHolder);
+    stripedStringHolder = stringHolder.substring(4, stringHolder.length -1);
+    console.log(`this is stringHolder for makeHex after`, stripedStringHolder);
+    
+    // index0 = (i * (16**2));
+    // index2 = (i * (16**1));
+    // index3 = (i * (16**0));
+  };
 
   function makeRGB(stringHolder){
     miniRGB = [];
@@ -208,21 +215,26 @@ function colorConverter (data){
     let indexFour = stringHolder[4];
     let indexFive = stringHolder[5];
     
-    miniRGB[0] = rgbHead + ((alphaNumericObj[indexZero] * 16) + (alphaNumericObj[indexOne] * 1));
+    miniRGB[0] = 'RGB(' + ((alphaNumericObj[indexZero] * 16) + (alphaNumericObj[indexOne] * 1));
     miniRGB[1] = ((alphaNumericObj[indexTwo] * 16) + (alphaNumericObj[indexThree] * 1));
-    miniRGB[2] = ((alphaNumericObj[indexFour] * 16) + (alphaNumericObj[indexFive] * 1)) + rgbTail;
+    miniRGB[2] = ((alphaNumericObj[indexFour] * 16) + (alphaNumericObj[indexFive] * 1)) + ')';
     
     console.log(`this is miniRGB `, miniRGB);
+    stringHolder=[];
+
+
   }
 
   function makeArray (data){
-    for (let index = 0; index < data.length; index++) {
+    if(data[0] === '#'){
+      for (let index = 0; index < data.length; index++) {
       let slicedLetter = data.slice(index, index+1);
       console.log(slicedLetter);
       stringHolder.push(slicedLetter);
       console.log(`this is stringHolder`, stringHolder);
     }
     findPath(stringHolder)
+    } else {stringHolder = data, findPath(stringHolder)}
   }
 makeArray(data);
 
