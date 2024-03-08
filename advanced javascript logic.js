@@ -9,7 +9,7 @@
 
 
 
-let arrayOrganizer = function(array){
+let arrayOrganizer = (array) => {
   let firstStagedArray =[];
   let secondStagedArray = [];
   let thirdStagedArray = [];
@@ -18,7 +18,7 @@ let arrayOrganizer = function(array){
   let sortedArray = flattenArray.sort(); 
   let singleIndexedArray = 0;
 
-  function initialSorter(){
+  initialSorter = () => {
     for (let index = 0; index < sortedArray.length; index++) {
       if (!isNaN(sortedArray[index]) && sortedArray[index] === sortedArray[index + 1]) {
        firstStagedArray.push(sortedArray[index]);
@@ -32,7 +32,7 @@ let arrayOrganizer = function(array){
       }
   }
 
-  function nextSorter(){
+  nextSorter = () => {
     for (let index = 0; index < secondStagedArray.length; index++) {
       if(secondStagedArray[index].length > 1 ){
         thirdStagedArray.push(secondStagedArray[index])
@@ -45,7 +45,7 @@ let arrayOrganizer = function(array){
     secondStagedArray = [];
   };
 
-  function finalSorter(){
+  finalSorter = () => {
     for (let index = 0; index < secondStagedArray.length; index++) {
       if(secondStagedArray[index].length > 1 ){
         doneArray.push(secondStagedArray[index])
@@ -60,7 +60,7 @@ let arrayOrganizer = function(array){
   initialSorter()
   finalSorter();
   return "this is the final answer", doneArray; 
- };
+};
 
 
 //  Question 2: Write a javascript function that takes an array of numbers and a target number. 
