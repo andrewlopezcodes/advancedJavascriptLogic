@@ -56,7 +56,7 @@ let arrayOrganizer = (array) => {
   nextSorter();
   initialSorter()
   finalSorter();
-  return "this is the final answer", doneArray; 
+  return doneArray; 
 };
 
 
