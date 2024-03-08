@@ -66,9 +66,9 @@ let arrayOrganizer = (array) => {
 // ['a', 'b', 'd', 2, 4, '2', '3', 'four', -24, 6, 12, -6]
 
 
-  function tryThis (array, total){
+  let tryThis = (array, total) => {
     let flattenArray = array.flat(Infinity);
-    let sortedArray = flattenArray.sort((a, b)=> a-b);
+    let sortedArray = flattenArray.sort((a, b) => a-b);
     let filteredArray = [];
     let storedNumber = 0;
     let addedPair = [];
@@ -92,7 +92,7 @@ let arrayOrganizer = (array) => {
   // Question 3: Write a function that converts HEX to RGB. Then Make that function auto-detect the 
   // formats so that if you enter HEX color format it returns RGB and if you enter RGB color format it returns HEX.
 
-function colorConverter (data){
+let colorConverter = (data) => {
   let stringHolder = [];
   let finished;
   let alphaNumericObj = {
@@ -120,11 +120,13 @@ function colorConverter (data){
     'F': 15,
   }
 
-  function findPath (stringHolder){
-    (stringHolder[0] === '#') ? makeRGB(stringHolder) : makeHex(stringHolder);
-  }
+  findPath = (stringHolder) => 
+    (stringHolder[0] === '#') ? 
+      makeRGB(stringHolder) : 
+      makeHex(stringHolder);
+  
 
-  function makeHex(stringHolder){
+  makeHex = (stringHolder) => {
     let stripedStringHolder;
     stripedStringHolder = stringHolder.substring(4, stringHolder.length -1);
     stringHolder = stripedStringHolder.split(',');
@@ -138,7 +140,7 @@ function colorConverter (data){
     stringHolder = [];
   };
 
-  function makeRGB(stringHolder){
+  makeRGB = (stringHolder) => {
     let miniRGB = [];
     stringHolder.shift();
     let indexZero = stringHolder[0];
@@ -154,7 +156,7 @@ function colorConverter (data){
     stringHolder=[];
   }
 
-  function makeArray (data){
+  makeArray = (data) => {
     if(data[0] === '#'){
       for (let index = 0; index < data.length; index++) {
       let slicedLetter = data.slice(index, index+1);
@@ -168,7 +170,7 @@ makeArray(data);
 return finished
 };
 
-//this code was written by @andrewlopezcodes 02/27/2024
+//this code was written by @andrewlopezcodes 03/08/2024
 
 
 
