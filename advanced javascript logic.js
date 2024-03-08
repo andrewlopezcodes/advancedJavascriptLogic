@@ -10,12 +10,12 @@
 
 
 let arrayOrganizer = (array) => {
+  let flattenArray = array.flat();
+  let sortedArray = flattenArray.sort(); 
   let firstStagedArray =[];
   let secondStagedArray = [];
   let thirdStagedArray = [];
   let doneArray = [];
-  let flattenArray = array.flat();
-  let sortedArray = flattenArray.sort(); 
   let singleIndexedArray = 0;
 
   initialSorter = () => {
@@ -34,12 +34,10 @@ let arrayOrganizer = (array) => {
 
   nextSorter = () => {
     for (let index = 0; index < secondStagedArray.length; index++) {
-      if(secondStagedArray[index].length > 1 ){
-        thirdStagedArray.push(secondStagedArray[index])
-      }else {
-        thirdStagedArray.push(secondStagedArray[index][0]);
+      (secondStagedArray[index].length > 1 ) ?
+        thirdStagedArray.push(secondStagedArray[index]) :
+        thirdStagedArray.push(secondStagedArray[index][0])
       }
-    };
     flattenArray = thirdStagedArray.flat(Infinity);
     sortedArray = flattenArray.sort((a, b)=> a-b);
     secondStagedArray = [];
@@ -47,13 +45,12 @@ let arrayOrganizer = (array) => {
 
   finalSorter = () => {
     for (let index = 0; index < secondStagedArray.length; index++) {
-      if(secondStagedArray[index].length > 1 ){
-        doneArray.push(secondStagedArray[index])
-      }else {
+      (secondStagedArray[index].length > 1 ) ? 
+        doneArray.push(secondStagedArray[index]) :
         doneArray.push(secondStagedArray[index][0]);
-      }
-    };
+    }
   };
+  
   
   initialSorter();
   nextSorter();
